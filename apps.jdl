@@ -1,0 +1,173 @@
+application {
+  config {
+    baseName gateway,
+    applicationType gateway,
+    packageName com.org.myapp.sales,
+    serviceDiscoveryType eureka,
+    searchEngine elasticsearch,
+    authenticationType oauth2,
+    prodDatabaseType postgresql,
+    cacheProvider hazelcast,
+    buildTool gradle,
+    clientFramework react,
+    testFrameworks [protractor]
+  }
+  entities *
+}
+
+application {
+  config {
+    baseName invoice,
+    applicationType microservice,
+    packageName com.org.myapp.invoice,
+    serviceDiscoveryType eureka,
+    searchEngine elasticsearch,
+    authenticationType oauth2,
+    prodDatabaseType postgresql,
+    devDatabaseType postgresql,
+    buildTool gradle,
+    serverPort 8081,
+    skipUserManagement true
+  }
+  entities Invoice, Product
+}
+
+application {
+  config {
+    baseName usage,
+    applicationType microservice,
+    packageName com.org.myapp.usage,
+    serviceDiscoveryType eureka,
+    searchEngine elasticsearch,
+    authenticationType oauth2,
+    prodDatabaseType postgresql,
+    devDatabaseType postgresql,
+    cacheProvider no,
+    enableHibernateCache false,
+    buildTool gradle,
+    serverPort 8082,
+    skipUserManagement true
+  }
+    entities Usage
+}
+
+application {
+  config {
+    baseName order,
+    applicationType microservice,
+    packageName com.org.myapp.order,
+    serviceDiscoveryType eureka,
+    searchEngine elasticsearch,
+    authenticationType oauth2,
+    prodDatabaseType postgresql,
+    devDatabaseType postgresql,
+    buildTool gradle,
+    serverPort 8083,
+    skipUserManagement true
+  }
+entities ProductOrder, OrderItem, ProductCategory, Product
+}
+
+entity Product {
+    name String required
+    description String
+    price BigDecimal required min(0)
+    size Size required
+    image ImageBlob
+}
+
+enum Size {
+    S, M, L, XL, XXL
+}
+
+entity ProductCategory {
+    name String required
+    description String
+}
+
+entity Customer {
+    firstName String required
+    lastName String required
+    gender Gender required
+    email String required pattern(/^[^@\s]+@[^@\s]+\.[^@\s]+$/)
+    phone String required
+    addressLine1 String required
+    addressLine2 String
+    city String required
+    country String required
+}
+
+enum Gender {
+    MALE, FEMALE, OTHER
+}
+
+entity ProductOrder {
+    placedDate Instant required
+    status OrderStatus required
+    code String required
+    invoiceId Long
+}
+
+enum OrderStatus {
+    COMPLETED, PENDING, CANCELLED
+}
+
+entity OrderItem {
+    quantity Integer required min(0)
+    totalPrice BigDecimal required min(0)
+    status OrderItemStatus required
+}
+
+enum OrderItemStatus {
+    AVAILABLE, OUT_OF_STOCK, BACK_ORDER
+}
+
+relationship OneToOne {
+    Customer{user(login) required} to User
+}
+
+relationship ManyToOne {
+    OrderItem{product(name) required} to Product
+}
+
+relationship OneToMany {
+   ProductOrder{orderItem} to OrderItem{order(code) required} ,
+   ProductCategory{product} to Product{productCategory(name)}
+}
+
+service Product, ProductCategory, Customer, ProductOrder, OrderItem with serviceClass
+paginate Product, Customer, ProductOrder, OrderItem with pagination
+
+/* Entities for Invoice microservice */
+entity Invoice {
+    code String required
+    date Instant required
+    details String
+    status InvoiceStatus required
+    paymentMethod PaymentMethod required
+    paymentDate Instant required
+    paymentAmount BigDecimal required
+}
+
+enum InvoiceStatus {
+    PAID, ISSUED, CANCELLED
+}
+
+enum PaymentMethod {
+    CREDIT_CARD, CASH_ON_DELIVERY, PAYPAL
+}
+
+entity Usage {
+    date Instant required
+    details String
+    sentDate Instant required
+    userId Long required
+    productId Long required
+}
+
+
+microservice Invoice with invoice
+microservice Usage with usage
+microservice Product, ProductCategory, ProductOrder, OrderItem with order
+dto * with mapstruct
+paginate Invoice with pagination

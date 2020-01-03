@@ -1,0 +1,31 @@
+{
+  "gatewayApp": {
+    "usageUsage": {
+      "home": {
+        "title": "Usages",
+        "createLabel": "Créer un nouveau Usage",
+        "createOrEditLabel": "Créer ou éditer un Usage",
+        "search": "Recherche pour Usage",
+        "notFound": "Aucun Usage trouvé"
+      },
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Usage {{ id }} ?"
+      },
+      "detail": {
+        "title": "Usage"
+      },
+      "date": "Date",
+      "details": "Details",
+      "sentDate": "Sent Date",
+      "userId": "User Id",
+      "productId": "Product Id"
+    }
+  },
+  "usageApp": {
+    "usageUsage": {
+      "created": "Un nouveau Usage a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Usage avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Usage avec l'identifiant {{ param }} a été supprimé"
+    }
+  }
+}

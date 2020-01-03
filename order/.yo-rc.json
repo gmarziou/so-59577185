@@ -1,0 +1,40 @@
+{
+  "generator-jhipster": {
+    "databaseType": "sql",
+    "devDatabaseType": "postgresql",
+    "enableHibernateCache": true,
+    "enableSwaggerCodegen": false,
+    "enableTranslation": true,
+    "jhiPrefix": "jhi",
+    "languages": [
+      "en",
+      "fr"
+    ],
+    "messageBroker": false,
+    "nativeLanguage": "en",
+    "packageName": "com.org.myapp.order",
+    "packageFolder": "com/org/myapp/order",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": "elasticsearch",
+    "serviceDiscoveryType": "eureka",
+    "skipClient": true,
+    "testFrameworks": [],
+    "websocket": false,
+    "baseName": "order",
+    "applicationType": "microservice",
+    "authenticationType": "oauth2",
+    "buildTool": "gradle",
+    "serverPort": "8083",
+    "skipUserManagement": true,
+    "jhipsterVersion": "6.6.0",
+    "creationTimestamp": 1578068460493,
+    "clientPackageManager": "npm",
+    "cacheProvider": "hazelcast"
+  },
+  "entities": [
+    "ProductOrder",
+    "OrderItem",
+    "ProductCategory",
+    "Product"
+  ]
+}

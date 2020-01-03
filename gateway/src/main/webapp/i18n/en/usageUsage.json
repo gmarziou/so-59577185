@@ -1,0 +1,31 @@
+{
+  "gatewayApp": {
+    "usageUsage": {
+      "home": {
+        "title": "Usages",
+        "createLabel": "Create a new Usage",
+        "createOrEditLabel": "Create or edit a Usage",
+        "search": "Search for Usage",
+        "notFound": "No Usages found"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Usage {{ id }}?"
+      },
+      "detail": {
+        "title": "Usage"
+      },
+      "date": "Date",
+      "details": "Details",
+      "sentDate": "Sent Date",
+      "userId": "User Id",
+      "productId": "Product Id"
+    }
+  },
+  "usageApp": {
+    "usageUsage": {
+      "created": "A new Usage is created with identifier {{ param }}",
+      "updated": "A Usage is updated with identifier {{ param }}",
+      "deleted": "A Usage is deleted with identifier {{ param }}"
+    }
+  }
+}
